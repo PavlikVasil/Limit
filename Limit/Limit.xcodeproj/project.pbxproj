@@ -59,6 +59,8 @@
 		E9B52B7126273A6A009F5B72 /* gt_america_mono_regular_italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9B52B4326273A68009F5B72 /* gt_america_mono_regular_italic.otf */; };
 		E9B52B7226273A6A009F5B72 /* gt_america_mono_bold_italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9B52B4426273A68009F5B72 /* gt_america_mono_bold_italic.otf */; };
 		E9B52B7326273A6A009F5B72 /* gt_america_mono_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E9B52B4526273A68009F5B72 /* gt_america_mono_light.otf */; };
+		E9B52B76262891B3009F5B72 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B52B75262891B1009F5B72 /* Extension+String.swift */; };
+		E9B52B792628B573009F5B72 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B52B782628B573009F5B72 /* Values.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +118,8 @@
 		E9B52B4326273A68009F5B72 /* gt_america_mono_regular_italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gt_america_mono_regular_italic.otf; sourceTree = "<group>"; };
 		E9B52B4426273A68009F5B72 /* gt_america_mono_bold_italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gt_america_mono_bold_italic.otf; sourceTree = "<group>"; };
 		E9B52B4526273A68009F5B72 /* gt_america_mono_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gt_america_mono_light.otf; sourceTree = "<group>"; };
+		E9B52B75262891B1009F5B72 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		E9B52B782628B573009F5B72 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +156,9 @@
 				E9B52AFB262497DD009F5B72 /* AppDelegate.swift */,
 				E9B52AFD262497DD009F5B72 /* SceneDelegate.swift */,
 				E9B52B122624AC86009F5B72 /* LimitController.swift */,
+				E9B52B75262891B1009F5B72 /* Extension+String.swift */,
 				E9B52AFF262497DD009F5B72 /* ViewController.swift */,
+				E9B52B782628B573009F5B72 /* Values.swift */,
 				E9B52B04262497E8009F5B72 /* Assets.xcassets */,
 				E9B52B06262497E8009F5B72 /* LaunchScreen.storyboard */,
 				E9B52B09262497E8009F5B72 /* Info.plist */,
@@ -328,6 +334,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B52B76262891B3009F5B72 /* Extension+String.swift in Sources */,
+				E9B52B792628B573009F5B72 /* Values.swift in Sources */,
 				E9B52B00262497DD009F5B72 /* ViewController.swift in Sources */,
 				E9B52AFC262497DD009F5B72 /* AppDelegate.swift in Sources */,
 				E9B52AFE262497DD009F5B72 /* SceneDelegate.swift in Sources */,

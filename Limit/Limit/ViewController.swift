@@ -9,6 +9,8 @@ import UIKit
 
 final class ViewController: UIViewController {
 
+    var values = Values()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
@@ -38,13 +40,6 @@ final class ViewController: UIViewController {
         tableView.delegate = self
         view.addSubview(tableView)
     }
-    
-    
-    var without = ["5.43", "0", "129.00"]
-    var partial = ["5000.00", "100.43", "5000.00"]
-    var full = ["22135.43", "100.43", "50000.00"]
-
-    
 }
 
 
@@ -65,30 +60,24 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let limitController = LimitController()
         limitController.modalPresentationStyle = .fullScreen
         
-        
         switch indexPath.row{
             case 0:
-                limitController.transactionAmount = self.without[0]
-                limitController.topUpAmount = self.without[1]
-                limitController.limit = self.without[2]
+                limitController.transactionAmount = values.transactionWithout
+                limitController.topUpAmount = values.topUpWithout
+                limitController.limit = values.limitWithout
             case 1:
-                limitController.transactionAmount = self.partial[0]
-                limitController.topUpAmount = self.partial[1]
-                limitController.limit = self.partial[2]
+                limitController.transactionAmount = values.transactionPartial
+                limitController.topUpAmount = values.topUpPartial
+                limitController.limit = values.limitPartial
             case 2:
-                limitController.transactionAmount = self.full[0]
-                limitController.topUpAmount = self.full[1]
-                limitController.limit = self.full[2]
+                limitController.transactionAmount = values.transactionFull
+                limitController.topUpAmount = values.topUpFull
+                limitController.limit = values.limitFull
             default:
                 break
-            }
+        }
         
         self.present(limitController, animated: true)
-        
     }
-    
-    
-    
-    
 }
 
