@@ -9,7 +9,6 @@ import UIKit
 
 final class ViewController: UIViewController {
 
-    var values = Values()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,27 +56,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let limitController = LimitController()
-        limitController.modalPresentationStyle = .fullScreen
-        
+        var limitController: LimitController?
         switch indexPath.row{
             case 0:
-                limitController.transactionAmount = values.transactionWithout
-                limitController.topUpAmount = values.topUpWithout
-                limitController.limit = values.limitWithout
+                limitController = LimitController(transactionAmount: 75.43, topUpAmount: 0, limit: 120.00)
+                limitController!.modalPresentationStyle = .fullScreen
             case 1:
-                limitController.transactionAmount = values.transactionPartial
-                limitController.topUpAmount = values.topUpPartial
-                limitController.limit = values.limitPartial
+                limitController = LimitController(transactionAmount: 5000.00, topUpAmount: 1000.43, limit: 5000.00)
+                limitController!.modalPresentationStyle = .fullScreen
             case 2:
-                limitController.transactionAmount = values.transactionFull
-                limitController.topUpAmount = values.topUpFull
-                limitController.limit = values.limitFull
+                limitController = LimitController(transactionAmount: 22135.43, topUpAmount: 100.43, limit: 50000.00)
+                limitController!.modalPresentationStyle = .fullScreen
             default:
                 break
         }
-        
-        self.present(limitController, animated: true)
+        self.present(limitController!, animated: true)
     }
 }
 
