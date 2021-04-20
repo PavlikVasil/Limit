@@ -59,13 +59,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         var limitController: LimitController?
         switch indexPath.row{
             case 0:
-                limitController = LimitController(transactionAmount: 75.43, topUpAmount: 0, limit: 120.00)
+                limitController = LimitController(transactionAmount: 75.43, topUpAmount: 75.43, limit: 120.00)
                 limitController!.modalPresentationStyle = .fullScreen
             case 1:
                 limitController = LimitController(transactionAmount: 5000.00, topUpAmount: 1000.43, limit: 5000.00)
                 limitController!.modalPresentationStyle = .fullScreen
             case 2:
-                limitController = LimitController(transactionAmount: 22135.43, topUpAmount: 100.43, limit: 50000.00)
+                limitController = LimitController(transactionAmount: 10135.43, topUpAmount: 100.43, limit: 50000.00)
                 limitController!.modalPresentationStyle = .fullScreen
             default:
                 break

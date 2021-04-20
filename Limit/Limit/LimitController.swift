@@ -15,7 +15,7 @@ final class LimitController: UIViewController {
     
     
     
-    init(transactionAmount: Double,topUpAmount: Double, limit: Double){
+    init(transactionAmount: Double, topUpAmount: Double, limit: Double){
         self.transactionAmount = transactionAmount
         self.topUpAmount = topUpAmount
         self.limit = limit
@@ -27,12 +27,12 @@ final class LimitController: UIViewController {
     }
     
     private lazy var declineTransactionView: UIView = {
-        let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit, transactionView: transactionView, frame: CGRect.zero )
+        let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit)
         declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
         return declineTransactionView
     }()
     private lazy var declineTopUpView: UIView = {
-        let declineTopUpView = DeclineTopUpView(topUpAmount: topUpAmount, limit: limit, topUpView: topUpView, frame: CGRect.zero)
+        let declineTopUpView = DeclineTransactionView(transactionAmount: topUpAmount, limit: limit)
         declineTopUpView.translatesAutoresizingMaskIntoConstraints = false
         return declineTopUpView
     }()
@@ -111,7 +111,7 @@ final class LimitController: UIViewController {
         let increaseTo50Button = UIButton()
         increaseTo50Button.translatesAutoresizingMaskIntoConstraints = false
         increaseTo50Button.backgroundColor = .white
-        increaseTo50Button.setTitle("INCREASE LIMIT TO £5,0000", for: .normal)
+        increaseTo50Button.setTitle("INCREASE LIMIT TO £50,000", for: .normal)
         increaseTo50Button.titleLabel?.font = UIFont(name: "GT America Mono", size: 12)
         increaseTo50Button.setTitleColor(#colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1), for: .normal)
         let image = UIImage(named: "Vector")
