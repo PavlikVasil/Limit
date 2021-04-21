@@ -51,13 +51,6 @@ final class LimitController: UIViewController {
         transactionLimitLabel.textColor = #colorLiteral(red: 0.5215686275, green: 0.5294117647, blue: 0.5411764706, alpha: 1)
         return transactionLimitLabel
     }()
-    private lazy var transactionView: UIView = {
-        let transactionView = UIView()
-        transactionView.translatesAutoresizingMaskIntoConstraints = false
-        transactionView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
-        transactionView.frame.size.width = UIScreen.main.bounds.width
-        return transactionView
-    }()
     private lazy var declineTransactionView: DeclineTransactionView = {
         let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit)
         declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,13 +64,6 @@ final class LimitController: UIViewController {
         topUpLimitLabel.font = UIFont(name: "Suisse Intl", size: 24)
         topUpLimitLabel.textColor = #colorLiteral(red: 0.5215686275, green: 0.5294117647, blue: 0.5411764706, alpha: 1)
         return topUpLimitLabel
-    }()
-    private lazy var topUpView: UIView = {
-        let topUpView = UIView()
-        topUpView.translatesAutoresizingMaskIntoConstraints = false
-        topUpView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
-        topUpView.frame.size.width = UIScreen.main.bounds.width
-        return topUpView
     }()
     private lazy var declineTopUpView: DeclineTransactionView = {
         let declineTopUpView = DeclineTransactionView(transactionAmount: topUpAmount, limit: limit)
@@ -121,18 +107,11 @@ final class LimitController: UIViewController {
         increaseTo50Button.setup()
         
         if transactionAmount == 0{
-            transactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+            declineTransactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
         }
         if topUpAmount == 0{
-            topUpView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+            declineTopUpView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
         }
-    
-        increaseTo5Button.imageView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.93).isActive = true
-        increaseTo5Button.titleLabel?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
-        increaseTo5Button.imageView?.centerYAnchor.constraint(equalTo: increaseTo5Button.centerYAnchor).isActive = true
-        increaseTo50Button.imageView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.93).isActive = true
-        increaseTo50Button.titleLabel?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
-        increaseTo50Button.imageView?.centerYAnchor.constraint(equalTo: increaseTo50Button.centerYAnchor).isActive = true
 
         
         let limitValue = Double(limit)

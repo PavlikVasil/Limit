@@ -12,17 +12,13 @@ class CustomButton: UIButton {
     
     override init(frame: CGRect){
             super.init(frame: frame)
+            setup()
         }
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-            super.layoutSubviews()
-            setup()
-        }
     
     func setup(){
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +29,13 @@ class CustomButton: UIButton {
         self.imageView?.contentMode = .right
         self.imageView?.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25.93).isActive = true
+        self.titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
+        self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25.93).isActive = true
+        self.titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
+        self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 
 }
