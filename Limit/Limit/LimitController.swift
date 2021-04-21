@@ -52,7 +52,7 @@ final class LimitController: UIViewController {
         return transactionLimitLabel
     }()
     private lazy var declineTransactionView: DeclineTransactionView = {
-        let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit)
+        let declineTransactionView = DeclineTransactionView()
         declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
         declineTransactionView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
         return declineTransactionView
@@ -66,7 +66,7 @@ final class LimitController: UIViewController {
         return topUpLimitLabel
     }()
     private lazy var declineTopUpView: DeclineTransactionView = {
-        let declineTopUpView = DeclineTransactionView(transactionAmount: topUpAmount, limit: limit)
+        let declineTopUpView = DeclineTransactionView()
         declineTopUpView.translatesAutoresizingMaskIntoConstraints = false
         declineTopUpView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
         return declineTopUpView
@@ -104,14 +104,9 @@ final class LimitController: UIViewController {
         view.addSubview(increaseTo5Button)
         view.addSubview(increaseTo50Button)
         
-        if transactionAmount == 0{
-            declineTransactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
-        }
-        if topUpAmount == 0{
-            declineTopUpView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
-        }
+        declineTransactionView.fill(transactionAmount: transactionAmount, limit: limit, animated: true)
+        declineTopUpView.fill(transactionAmount: topUpAmount, limit: limit, animated: true)
 
-        
         let limitValue = Double(limit)
         switch limitValue{
         case _ where limitValue < 5000:
@@ -125,6 +120,8 @@ final class LimitController: UIViewController {
             increaseTo50Button.isHidden = true
             increaseTo50Button.isUserInteractionEnabled = false
         }
+        
+        increaseTo5Button.addTarget(self, action: #selector(callFill), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 25),
@@ -177,13 +174,18 @@ final class LimitController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         UIView.animate(withDuration: 1.0, animations: { () -> Void in
-            self.declineTransactionView.animate()
-            self.declineTopUpView.animate()
+            self.declineTransactionView.setNeedsLayout()
+            self.declineTopUpView.setNeedsLayout()
         })
     }
 
     @objc func backTapped(){
         self.dismiss(animated: true)
+    }
+    
+    @objc func callFill(){
+    
+        declineTransactionView.fill(transactionAmount: 500, limit: 1000, animated: true)
     }
 }
 

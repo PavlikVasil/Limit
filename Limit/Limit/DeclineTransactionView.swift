@@ -8,13 +8,8 @@
 import UIKit
 
 class DeclineTransactionView: UIView {
-
-    var transactionAmount: Double
-    var limit: Double
     
-    init(transactionAmount: Double, limit: Double){
-        self.transactionAmount = transactionAmount
-        self.limit = limit
+    init(){
         super.init(frame: .zero)
         setup()
     }
@@ -33,7 +28,7 @@ class DeclineTransactionView: UIView {
     private lazy var upperTransactionLimitLabel: UILabel = {
         let upperTransactionLimitLabel = UILabel()
         upperTransactionLimitLabel.translatesAutoresizingMaskIntoConstraints = false
-        upperTransactionLimitLabel.text = "\(String(limit).doubleValue.currency)"
+        //upperTransactionLimitLabel.text = "\(String(limit).doubleValue.currency)"
         upperTransactionLimitLabel.font = UIFont(name: "Suisse Intl", size: 24)
         upperTransactionLimitLabel.textColor = #colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1)
         upperTransactionLimitLabel.layer.zPosition = 2
@@ -42,7 +37,7 @@ class DeclineTransactionView: UIView {
     private lazy var transactionAmountLabel: UILabel = {
         let transactionAmountLabel = UILabel()
         transactionAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        transactionAmountLabel.text = "\(String(transactionAmount).doubleValue.currency)"
+        //transactionAmountLabel.text = "\(String(transactionAmount).doubleValue.currency)"
         transactionAmountLabel.font = UIFont(name: "Suisse Intl", size: 24)
         transactionAmountLabel.textColor = #colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1)
         transactionAmountLabel.layer.zPosition = 2
@@ -52,11 +47,18 @@ class DeclineTransactionView: UIView {
     func setup(){
         self.addSubview(declineTransactionView)
         self.addSubview(upperTransactionLimitLabel)
+        declineTransactionView.addSubview(transactionAmountLabel)
+    }
+    
+    func fill(transactionAmount: Double, limit: Double, animated: Bool){
         if transactionAmount == 0{
             transactionAmountLabel.isHidden = true
+            declineTransactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
         }
+        self.upperTransactionLimitLabel.text = "\(String(limit).doubleValue.currency)"
+        
         if transactionAmount != limit{
-            declineTransactionView.addSubview(transactionAmountLabel)
+            self.transactionAmountLabel.text = "\(String(transactionAmount).doubleValue.currency)"
             self.transactionAmountLabel.isHidden = true
             let progress = CGFloat(1 - Float(transactionAmount/limit))
             
@@ -68,7 +70,8 @@ class DeclineTransactionView: UIView {
             
             let constraintLeft = transactionAmountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 25)
             
-            if leftWidth > transactionAmountLabel.intrinsicContentSize.width + 25{
+            if leftWidth > self.transactionAmountLabel.intrinsicContentSize.width + 25{
+                print(self.transactionAmountLabel.intrinsicContentSize.width + 25)
                 constraint.isActive = true
                 constraintLeft.isActive = false
                 print("constraint -progress")
@@ -93,20 +96,34 @@ class DeclineTransactionView: UIView {
             declineTransactionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             declineTransactionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
         ])
-    }
-    
-    func animate() {
+        
+        
         let progress = 1 - Float(transactionAmount/limit)
         self.transactionAmountLabel.isHidden = true
         declineTransactionView.semanticContentAttribute = .forceRightToLeft
         declineTransactionView.setProgress(0, animated: false)
-        if self.transactionAmount != 0 {
-            self.declineTransactionView.layoutIfNeeded()
-            self.declineTransactionView.setProgress(progress, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-                self.transactionAmountLabel.isHidden = false
-            }
+        if transactionAmount != 0 {
+        
+            UIView.animate(withDuration: 0.0, animations: {
+                    self.declineTransactionView.layoutIfNeeded()
+                }, completion: { finished in
+                    self.declineTransactionView.setProgress(progress, animated: animated)
+
+                    UIView.animate(withDuration: 1.0, delay: 0.1, options: [.curveLinear], animations: {
+                        self.declineTransactionView.layoutIfNeeded()
+                    }, completion: { finished in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                            self.transactionAmountLabel.isHidden = false
+                        }
+                        print("animation completed")
+                    })
+                })
         }
     }
 
+    
+    
+    
 }
+
+
