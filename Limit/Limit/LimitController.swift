@@ -102,9 +102,7 @@ final class LimitController: UIViewController {
         view.addSubview(declineTopUpView)
         view.addSubview(renewalLabel)
         view.addSubview(increaseTo5Button)
-        increaseTo5Button.setup()
         view.addSubview(increaseTo50Button)
-        increaseTo50Button.setup()
         
         if transactionAmount == 0{
             declineTransactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
@@ -137,12 +135,10 @@ final class LimitController: UIViewController {
             monthlyLimitsLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 40),
             monthlyLimitsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             monthlyLimitsLabel.widthAnchor.constraint(equalToConstant: 312),
-            monthlyLimitsLabel.heightAnchor.constraint(equalToConstant: 38),
             
             transactionLimitLabel.topAnchor.constraint(equalTo: monthlyLimitsLabel.bottomAnchor, constant: 32),
             transactionLimitLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             transactionLimitLabel.widthAnchor.constraint(equalToConstant: 187),
-            transactionLimitLabel.heightAnchor.constraint(lessThanOrEqualTo: transactionLimitLabel.heightAnchor, multiplier: 0.5, constant: 31),
             
             declineTransactionView.topAnchor.constraint(equalTo: transactionLimitLabel.bottomAnchor, constant: 16),
             declineTransactionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -151,7 +147,6 @@ final class LimitController: UIViewController {
             
             topUpLimitLabel.topAnchor.constraint(equalTo: declineTransactionView.bottomAnchor, constant: 32),
             topUpLimitLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            topUpLimitLabel.heightAnchor.constraint(lessThanOrEqualTo: topUpLimitLabel.heightAnchor, multiplier: 0.5, constant: 31),
             
             declineTopUpView.topAnchor.constraint(equalTo: topUpLimitLabel.bottomAnchor, constant: 16),
             declineTopUpView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -163,7 +158,7 @@ final class LimitController: UIViewController {
             renewalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 69),
             renewalLabel.heightAnchor.constraint(lessThanOrEqualTo: renewalLabel.heightAnchor, multiplier: 0.5, constant: 31),
             
-            increaseTo5Button.topAnchor.constraint(lessThanOrEqualTo: renewalLabel.bottomAnchor, constant: 70),
+            increaseTo5Button.topAnchor.constraint(lessThanOrEqualTo: renewalLabel.bottomAnchor, constant: 79),
             increaseTo5Button.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             increaseTo5Button.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             increaseTo5Button.heightAnchor.constraint(lessThanOrEqualTo: increaseTo50Button.heightAnchor, multiplier: 0.1, constant: 80),

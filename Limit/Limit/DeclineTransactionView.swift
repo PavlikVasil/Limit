@@ -79,8 +79,7 @@ class DeclineTransactionView: UIView {
             }
             
             NSLayoutConstraint.activate([
-                transactionAmountLabel.topAnchor.constraint(equalTo: declineTransactionView.topAnchor, constant: 8),
-                transactionAmountLabel.heightAnchor.constraint(equalToConstant: 31)
+                transactionAmountLabel.topAnchor.constraint(equalTo: declineTransactionView.topAnchor, constant: 8)
             ])
         }
         
@@ -88,13 +87,11 @@ class DeclineTransactionView: UIView {
         NSLayoutConstraint.activate([
             upperTransactionLimitLabel.bottomAnchor.constraint(equalTo: declineTransactionView.bottomAnchor, constant: -8),
             upperTransactionLimitLabel.trailingAnchor.constraint(equalTo: declineTransactionView.trailingAnchor,constant: -24),
-            upperTransactionLimitLabel.heightAnchor.constraint(equalToConstant: 31),
             
             declineTransactionView.topAnchor.constraint(equalTo: self.topAnchor ),
             declineTransactionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             declineTransactionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             declineTransactionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            declineTransactionView.heightAnchor.constraint(equalToConstant: 78),
         ])
     }
     

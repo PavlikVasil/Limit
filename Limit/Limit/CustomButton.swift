@@ -32,9 +32,7 @@ class CustomButton: UIButton {
         
         self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25.93).isActive = true
         self.titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
-        self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        self.imageView?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25.93).isActive = true
-        self.titleLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
+        self.titleLabel?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         self.imageView?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 
