@@ -14,7 +14,6 @@ final class LimitController: UIViewController {
     var limit: Double
     
     
-    
     init(transactionAmount: Double, topUpAmount: Double, limit: Double){
         self.transactionAmount = transactionAmount
         self.topUpAmount = topUpAmount
@@ -26,16 +25,6 @@ final class LimitController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var declineTransactionView: UIView = {
-        let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit)
-        declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
-        return declineTransactionView
-    }()
-    private lazy var declineTopUpView: UIView = {
-        let declineTopUpView = DeclineTransactionView(transactionAmount: topUpAmount, limit: limit)
-        declineTopUpView.translatesAutoresizingMaskIntoConstraints = false
-        return declineTopUpView
-    }()
     private lazy var backButton: UIButton = {
         let backButton = UIButton(type: .system)
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +58,12 @@ final class LimitController: UIViewController {
         transactionView.frame.size.width = UIScreen.main.bounds.width
         return transactionView
     }()
+    private lazy var declineTransactionView: DeclineTransactionView = {
+        let declineTransactionView = DeclineTransactionView(transactionAmount: transactionAmount, limit: limit)
+        declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
+        declineTransactionView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
+        return declineTransactionView
+    }()
     private lazy var topUpLimitLabel: UILabel = {
         let topUpLimitLabel = UILabel()
         topUpLimitLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +79,12 @@ final class LimitController: UIViewController {
         topUpView.frame.size.width = UIScreen.main.bounds.width
         return topUpView
     }()
-    
+    private lazy var declineTopUpView: DeclineTransactionView = {
+        let declineTopUpView = DeclineTransactionView(transactionAmount: topUpAmount, limit: limit)
+        declineTopUpView.translatesAutoresizingMaskIntoConstraints = false
+        declineTopUpView.layer.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
+        return declineTopUpView
+    }()
     private lazy var renewalLabel: UILabel = {
         let renewalLabel = UILabel()
         renewalLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -93,32 +93,14 @@ final class LimitController: UIViewController {
         renewalLabel.textColor = #colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1)
         return renewalLabel
     }()
-    private lazy var increaseTo5Button: UIButton = {
-        let increaseTo5Button = UIButton()
-        increaseTo5Button.translatesAutoresizingMaskIntoConstraints = false
-        increaseTo5Button.backgroundColor = .white
+    private lazy var increaseTo5Button: CustomButton = {
+        let increaseTo5Button = CustomButton()
         increaseTo5Button.setTitle("INCREASE LIMIT TO £5,000", for: .normal)
-        increaseTo5Button.titleLabel?.font = UIFont(name: "GT America Mono", size: 12)
-        increaseTo5Button.setTitleColor(#colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1), for: .normal)
-        let image = UIImage(named: "Vector")
-        increaseTo5Button.setImage(image, for: .normal)
-        increaseTo5Button.imageView?.contentMode = .right
-        increaseTo5Button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        increaseTo5Button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
         return increaseTo5Button
     }()
-    private lazy var increaseTo50Button: UIButton = {
-        let increaseTo50Button = UIButton()
-        increaseTo50Button.translatesAutoresizingMaskIntoConstraints = false
-        increaseTo50Button.backgroundColor = .white
+    private lazy var increaseTo50Button: CustomButton = {
+        let increaseTo50Button = CustomButton()
         increaseTo50Button.setTitle("INCREASE LIMIT TO £50,000", for: .normal)
-        increaseTo50Button.titleLabel?.font = UIFont(name: "GT America Mono", size: 12)
-        increaseTo50Button.setTitleColor(#colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1), for: .normal)
-        let image = UIImage(named: "Vector")
-        increaseTo50Button.setImage(image, for: .normal)
-        increaseTo50Button.imageView?.contentMode = .right
-        increaseTo50Button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        increaseTo50Button.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
         return increaseTo50Button
     }()
     
@@ -129,14 +111,14 @@ final class LimitController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(monthlyLimitsLabel)
         view.addSubview(transactionLimitLabel)
-        view.addSubview(transactionView)
         view.addSubview(declineTransactionView)
         view.addSubview(topUpLimitLabel)
-        view.addSubview(topUpView)
         view.addSubview(declineTopUpView)
         view.addSubview(renewalLabel)
         view.addSubview(increaseTo5Button)
+        increaseTo5Button.setup()
         view.addSubview(increaseTo50Button)
+        increaseTo50Button.setup()
         
         if transactionAmount == 0{
             transactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
@@ -174,7 +156,6 @@ final class LimitController: UIViewController {
             backButton.heightAnchor.constraint(equalToConstant: 16),
             
             monthlyLimitsLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 40),
-            //monthlyLimitsLabel.bottomAnchor.constraint(greaterThanOrEqualTo: transactionLimitLabel.topAnchor, constant: -12),
             monthlyLimitsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             monthlyLimitsLabel.widthAnchor.constraint(equalToConstant: 312),
             monthlyLimitsLabel.heightAnchor.constraint(equalToConstant: 38),
@@ -184,32 +165,21 @@ final class LimitController: UIViewController {
             transactionLimitLabel.widthAnchor.constraint(equalToConstant: 187),
             transactionLimitLabel.heightAnchor.constraint(lessThanOrEqualTo: transactionLimitLabel.heightAnchor, multiplier: 0.5, constant: 31),
             
-            transactionView.topAnchor.constraint(equalTo: transactionLimitLabel.bottomAnchor, constant: 16),
-            transactionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            transactionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            transactionView.heightAnchor.constraint(equalToConstant: 78),
-            
-            declineTransactionView.topAnchor.constraint(equalTo: transactionView.topAnchor),
-            declineTransactionView.trailingAnchor.constraint(equalTo: transactionView.trailingAnchor),
-            declineTransactionView.bottomAnchor.constraint(equalTo: transactionView.bottomAnchor),
-            declineTransactionView.leadingAnchor.constraint(equalTo: transactionView.leadingAnchor),
+            declineTransactionView.topAnchor.constraint(equalTo: transactionLimitLabel.bottomAnchor, constant: 16),
+            declineTransactionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            declineTransactionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             declineTransactionView.heightAnchor.constraint(equalToConstant: 78),
             
-            topUpLimitLabel.topAnchor.constraint(equalTo: transactionView.bottomAnchor, constant: 32),
+            topUpLimitLabel.topAnchor.constraint(equalTo: declineTransactionView.bottomAnchor, constant: 32),
             topUpLimitLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             topUpLimitLabel.heightAnchor.constraint(lessThanOrEqualTo: topUpLimitLabel.heightAnchor, multiplier: 0.5, constant: 31),
             
-            topUpView.topAnchor.constraint(equalTo: topUpLimitLabel.bottomAnchor, constant: 16),
-            topUpView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topUpView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topUpView.heightAnchor.constraint(equalToConstant: 78),
+            declineTopUpView.topAnchor.constraint(equalTo: topUpLimitLabel.bottomAnchor, constant: 16),
+            declineTopUpView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            declineTopUpView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            declineTopUpView.heightAnchor.constraint(equalToConstant: 78),
             
-            declineTopUpView.topAnchor.constraint(equalTo: topUpView.topAnchor),
-            declineTopUpView.trailingAnchor.constraint(equalTo: topUpView.trailingAnchor),
-            declineTopUpView.bottomAnchor.constraint(equalTo: topUpView.bottomAnchor),
-            declineTopUpView.leadingAnchor.constraint(equalTo: topUpView.leadingAnchor),
-            
-            renewalLabel.topAnchor.constraint(equalTo: topUpView.bottomAnchor, constant: 32),
+            renewalLabel.topAnchor.constraint(equalTo: declineTopUpView.bottomAnchor, constant: 32),
             renewalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             renewalLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 69),
             renewalLabel.heightAnchor.constraint(lessThanOrEqualTo: renewalLabel.heightAnchor, multiplier: 0.5, constant: 31),
@@ -229,6 +199,13 @@ final class LimitController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        UIView.animate(withDuration: 1.0, animations: { () -> Void in
+            self.declineTransactionView.animate()
+            self.declineTopUpView.animate()
+        })
     }
 
     @objc func backTapped(){
