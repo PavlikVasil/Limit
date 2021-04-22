@@ -173,10 +173,6 @@ final class LimitController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        UIView.animate(withDuration: 1.0, animations: { () -> Void in
-            self.declineTransactionView.setNeedsLayout()
-            self.declineTopUpView.setNeedsLayout()
-        })
     }
 
     @objc func backTapped(){
@@ -184,7 +180,6 @@ final class LimitController: UIViewController {
     }
     
     @objc func callFill(){
-    
         declineTransactionView.fill(transactionAmount: 500, limit: 1000, animated: true)
     }
 }
