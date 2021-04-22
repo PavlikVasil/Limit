@@ -22,7 +22,9 @@ class DeclineTransactionView: UIView {
         let declineTransactionView = UIProgressView()
         declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
         declineTransactionView.semanticContentAttribute = .forceRightToLeft
-        declineTransactionView.tintColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
+        declineTransactionView.trackTintColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
+        declineTransactionView.progressTintColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
+        declineTransactionView.progressViewStyle = .bar
         return declineTransactionView
     }()
     private lazy var upperTransactionLimitLabel: UILabel = {
@@ -94,22 +96,13 @@ class DeclineTransactionView: UIView {
         let progress = 1 - Float(transactionAmount/limit)
         self.transactionAmountLabel.isHidden = true
         declineTransactionView.semanticContentAttribute = .forceRightToLeft
-        declineTransactionView.setProgress(0, animated: false)
+        self.declineTransactionView.layoutIfNeeded()
         if transactionAmount != 0 {
-        
+            self.declineTransactionView.progress = progress
             UIView.animate(withDuration: 0.0, animations: {
                     self.declineTransactionView.layoutIfNeeded()
-                }, completion: { finished in
-                    self.declineTransactionView.setProgress(progress, animated: animated)
-
-                    UIView.animate(withDuration: 1.0, delay: 0.1, options: [.curveLinear], animations: {
-                        self.declineTransactionView.layoutIfNeeded()
-                    }, completion: { finished in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-                            self.transactionAmountLabel.isHidden = false
-                        }
-                        print("animation completed")
-                    })
+                }, completion: { (_) in
+                    self.declineTransactionView.isHidden = false
                 })
         }
     }

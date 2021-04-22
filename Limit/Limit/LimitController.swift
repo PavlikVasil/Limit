@@ -103,9 +103,6 @@ final class LimitController: UIViewController {
         view.addSubview(renewalLabel)
         view.addSubview(increaseTo5Button)
         view.addSubview(increaseTo50Button)
-        
-        declineTransactionView.fill(transactionAmount: transactionAmount, limit: limit, animated: true)
-        declineTopUpView.fill(transactionAmount: topUpAmount, limit: limit, animated: true)
 
         let limitValue = Double(limit)
         switch limitValue{
@@ -173,6 +170,8 @@ final class LimitController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        declineTransactionView.fill(transactionAmount: transactionAmount, limit: limit, animated: true)
+        declineTopUpView.fill(transactionAmount: topUpAmount, limit: limit, animated: true)
     }
 
     @objc func backTapped(){
