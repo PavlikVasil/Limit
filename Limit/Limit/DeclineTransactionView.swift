@@ -28,7 +28,6 @@ class DeclineTransactionView: UIView {
     private lazy var upperTransactionLimitLabel: UILabel = {
         let upperTransactionLimitLabel = UILabel()
         upperTransactionLimitLabel.translatesAutoresizingMaskIntoConstraints = false
-        //upperTransactionLimitLabel.text = "\(String(limit).doubleValue.currency)"
         upperTransactionLimitLabel.font = UIFont(name: "Suisse Intl", size: 24)
         upperTransactionLimitLabel.textColor = #colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1)
         upperTransactionLimitLabel.layer.zPosition = 2
@@ -37,7 +36,6 @@ class DeclineTransactionView: UIView {
     private lazy var transactionAmountLabel: UILabel = {
         let transactionAmountLabel = UILabel()
         transactionAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        //transactionAmountLabel.text = "\(String(transactionAmount).doubleValue.currency)"
         transactionAmountLabel.font = UIFont(name: "Suisse Intl", size: 24)
         transactionAmountLabel.textColor = #colorLiteral(red: 0.137254902, green: 0.1490196078, blue: 0.1725490196, alpha: 1)
         transactionAmountLabel.layer.zPosition = 2
@@ -48,6 +46,16 @@ class DeclineTransactionView: UIView {
         self.addSubview(declineTransactionView)
         self.addSubview(upperTransactionLimitLabel)
         declineTransactionView.addSubview(transactionAmountLabel)
+        
+        NSLayoutConstraint.activate([
+            upperTransactionLimitLabel.bottomAnchor.constraint(equalTo: declineTransactionView.bottomAnchor, constant: -8),
+            upperTransactionLimitLabel.trailingAnchor.constraint(equalTo: declineTransactionView.trailingAnchor,constant: -24),
+            declineTransactionView.topAnchor.constraint(equalTo: self.topAnchor ),
+            declineTransactionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            declineTransactionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            declineTransactionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            transactionAmountLabel.topAnchor.constraint(equalTo: declineTransactionView.topAnchor, constant: 8)
+        ])
     }
     
     func fill(transactionAmount: Double, limit: Double, animated: Bool){
@@ -80,22 +88,7 @@ class DeclineTransactionView: UIView {
                 constraintLeft.isActive = true
                 print("constraint -25")
             }
-            
-            NSLayoutConstraint.activate([
-                transactionAmountLabel.topAnchor.constraint(equalTo: declineTransactionView.topAnchor, constant: 8)
-            ])
         }
-        
-        
-        NSLayoutConstraint.activate([
-            upperTransactionLimitLabel.bottomAnchor.constraint(equalTo: declineTransactionView.bottomAnchor, constant: -8),
-            upperTransactionLimitLabel.trailingAnchor.constraint(equalTo: declineTransactionView.trailingAnchor,constant: -24),
-            
-            declineTransactionView.topAnchor.constraint(equalTo: self.topAnchor ),
-            declineTransactionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            declineTransactionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            declineTransactionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-        ])
         
         
         let progress = 1 - Float(transactionAmount/limit)
