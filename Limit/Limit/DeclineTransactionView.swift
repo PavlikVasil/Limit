@@ -19,12 +19,11 @@ class DeclineTransactionView: UIView {
     }
     
     private lazy var declineTransactionView: UIProgressView = {
-        let declineTransactionView = UIProgressView()
+		let declineTransactionView = UIProgressView(progressViewStyle: .bar)
         declineTransactionView.translatesAutoresizingMaskIntoConstraints = false
         declineTransactionView.semanticContentAttribute = .forceRightToLeft
-        declineTransactionView.trackTintColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
-        declineTransactionView.progressTintColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
-        declineTransactionView.progressViewStyle = .bar
+		declineTransactionView.trackTintColor = #colorLiteral(red: 0, green: 1, blue: 0.8196078431, alpha: 1)
+		declineTransactionView.progressTintColor = #colorLiteral(red: 0.9058823529, green: 0.9058823529, blue: 0.9098039216, alpha: 1)
         return declineTransactionView
     }()
     private lazy var upperTransactionLimitLabel: UILabel = {
@@ -63,7 +62,7 @@ class DeclineTransactionView: UIView {
     func fill(transactionAmount: Double, limit: Double, animated: Bool){
         if transactionAmount == 0{
             transactionAmountLabel.isHidden = true
-            declineTransactionView.layer.backgroundColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
+            declineTransactionView.progressTintColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 1)
         }
         self.upperTransactionLimitLabel.text = "\(String(limit).doubleValue.currency)"
         
@@ -96,15 +95,17 @@ class DeclineTransactionView: UIView {
         let progress = 1 - Float(transactionAmount/limit)
         self.transactionAmountLabel.isHidden = true
         declineTransactionView.semanticContentAttribute = .forceRightToLeft
-        self.declineTransactionView.layoutIfNeeded()
-        if transactionAmount != 0 {
-            self.declineTransactionView.progress = progress
-            UIView.animate(withDuration: 0.0, animations: {
-                    self.declineTransactionView.layoutIfNeeded()
-                }, completion: { (_) in
-                    self.declineTransactionView.isHidden = false
-                })
-        }
+		self.declineTransactionView.layoutIfNeeded()
+		self.declineTransactionView.progress = progress
+		UIView.animate(
+			withDuration: 1.0,
+			delay: 0.0,
+			options: [],
+			animations: {
+				self.declineTransactionView.layoutIfNeeded()
+			}, completion: { (_) in
+				self.transactionAmountLabel.isHidden = false
+			})
     }
 
     
